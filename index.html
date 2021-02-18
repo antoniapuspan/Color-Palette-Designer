@@ -1,12 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <title>Color Palette Designer</title>
 </head>
+
 <body>
- <script src="script.js"></script>   
+    <div id="container">
+        
+        <div id="options">
+            <label><input type="radio" id="option1">Analogous</label>
+            <label><input type="radio" id="option2">Monocromatic</label>
+            <label><input type="radio" id="option3">Triad</label>
+            <label><input type="radio" id="option4">Complementary</label>
+            <label><input type="radio" id="option5">Compound</label>
+            <label><input type="radio" id="option6">Shades</label>
+        </div>
+        <div id="picker">
+            Choose color:
+            <input id="color" type="color"></input>
+        </div>
+    </div>
+    <div id="colors">
+        <div id="colorA">A
+            <div class="colorbox"></div>
+            <div class="hexColor">HEX:<span class="value"></span></div>
+            <div class="rgbColor">RGB:<span class="value"></span></div>
+            <div class="hslColoRGB">HSL:<span class="value"></span></div>
+        </div>
+        <div id="colorB">B
+            <div class="colorbox"></div>
+            <div class="hexColor">HEX:<span class="value"></span></div>
+            <div class="rgbColor">RGB:<span class="value"></span></div>
+            <div class="hslColoRGB">HSL:<span class="value"></span></div>
+        </div>
+        <div id="colorC">C
+            <div class="colorbox"></div>
+            <div class="hexColor">HEX:<span class="value"></span></div>
+            <div class="rgbColor">RGB:<span class="value"></span></div>
+            <div class="hslColoRGB">HSL:<span class="value"></span></div>
+        </div>
+        <div id="colorD">D
+            <div class="colorbox"></div>
+            <div class="hexColor">HEX:<span class="value"></span></div>
+            <div class="rgbColor">RGB:<span class="value"></span></div>
+            <div class="hslColoRGB">HSL:<span class="value"></span></div>
+        </div>
+        <div id="colorE">E
+            <div class="colorbox"></div>
+            <div class="hexColor">HEX:<span class="value"></span></div>
+            <div class="rgbColor">RGB:<span class="value"></span></div>
+            <div class="hslColoRGB">HSL:<span class="value"></span></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
+
 </html>
