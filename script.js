@@ -20,7 +20,11 @@ function main() {
     //calls function for box color C
     // setColorC(userColor);
 
-    let colorSet = generateAnalogous(userColor);
+    let colorSet;
+    if(option1) {
+        colorSet = generateAnalogous(userColor);
+        
+    }
 
     colorSet.forEach(colorbox => {
         displayColorInfo(colorbox.color, colorbox.index);
@@ -290,3 +294,4 @@ function shiftH(h, deg) {
     }
     return x;
 }
+
