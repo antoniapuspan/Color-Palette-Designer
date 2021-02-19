@@ -16,22 +16,16 @@ main();
 function main() {
     //strores the value from the user
     let userColor = getUserData();
-    
+
     //calls function for box color C
-    setColorC(userColor);
+    // setColorC(userColor);
 
-    //displays hex color
-    displayHexColor(userColor);
+    let colorSet = generateAnalogous(userColor);
 
-    //displays rgb color
-    let myRgb = hexToRgb(userColor);
-    displayRgbColor(myRgb);
+    colorSet.forEach(colorbox => {
+        displayColorInfo(colorbox.color, colorbox.index);
 
-   
-    let myHsl = rgbToHsl(myRgb.r, myRgb.g, myRgb.b);
-    displayHsl(myHsl);
-
-    convertRgbToCssRgb(myRgb);
+    });
 }
 
 // Getting a selected color from the user
@@ -41,25 +35,40 @@ function getUserData() {
 }
 
 // Showing the color as a colored box in CSS
-function setColorC(color) {
-    colorC.style.backgroundColor = color;
+// function setColorC(color) {
+//     colorC.style.backgroundColor = color;
+// }
+
+function displayColorInfo(color, index) {
+    // get the color selected
+    console.log(color);
+
+    // convert from hex to rgb, hsl, css and so on
+    let rgb = hexToRgb(color);
+    let myHsl = rgbToHsl(rgb.r, rgb.g, rgb.b);
+
+    // display those different colors ...
+    showHexColor(color, index);
+    showRbgColor(rgb, index);
+    showHslColor(myHsl, index);
+    showColorBox(rgb, index);
 }
 
-// Showing the color as hex
-function displayHexColor(x) {
-    hexColor.innerHTML = x;
+// display functions
+function showHexColor(hex, index) {
+    document.querySelector(`#color${index} .hexColor .value`).textContent = hex;
 }
 
-// Showing the color as RGB
-function displayRgbColor(rgbObj) {
-    let rgbString = rgbObj.r + ", " + rgbObj.g + ", " + rgbObj.b;
-    rgbColor.innerHTML = rgbString;
+function showRbgColor(rgb, index) {
+    document.querySelector(`#color${index} .rgbColor .value`).textContent = `${rgb.r}, ${rgb.g}, ${rgb.b}`;
 }
 
-// Showing the color as HSL
-function displayHsl(x) {
-    let hslString = x.h + " " + x.s + "% " + x.l + "%"; 
-    hslColor.innerHTML = hslString;
+function showHslColor(hsl, index) {
+    document.querySelector(`#color${index} .hslColor .value`).textContent = `${hsl.h}, ${hsl.s}, ${hsl.l}`;
+}
+
+function showColorBox(rgb, index) {
+    document.querySelector(`#color${index} .colorbox`).style.backgroundColor = `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`;
 }
 
 // Converting RGB to CSS usable string, like rgb(100, 123, 192);
@@ -103,7 +112,7 @@ function rgbToHex(color) {
 
     let hexColor = "#" + r + g + b;
 
-    console.log(hexColor);
+    return hexColor;
 }
 
 function hexToStr(x) {
@@ -117,6 +126,7 @@ function rgbToHsl(r, g, b) {
     g /= 255;
     b /= 255;
 
+    console.log(r, g, b);
     let h, s, l;
 
     const min = Math.min(r, g, b);
@@ -149,53 +159,134 @@ function rgbToHsl(r, g, b) {
     // multiply s and l by 100 to get the value in percent, rather than [0,1]
     s *= 100;
     l *= 100;
-    
-    h = h.toFixed(0);
-    s = s.toFixed(0);
-    l = l.toFixed(0);
-    
-    return {h,s,l};
+
+    h = parseInt(h.toFixed(0));
+    s = parseInt(s.toFixed(0));
+    l = parseInt(l.toFixed(0));
+
+    return {
+        h,
+        s,
+        l
+    };
 }
 
-function hslToRgb( hsl ) {
+function hslToRgb(hsl) {
     const h = hsl.h;
     const s = hsl.s / 100;
     const l = hsl.l / 100;
-   
-  let c = (1 - Math.abs(2 * l - 1)) * s,
-  x = c * (1 - Math.abs(((h / 60) % 2) - 1)),
-  m = l - c / 2,
-  r = 0,
-  g = 0,
-  b = 0;
-  if (0 <= h && h < 60) {
-  r = c;
-  g = x;
-  b = 0;
-  } else if (60 <= h && h < 120) {
-  r = x;
-  g = c;
-  b = 0;
-  } else if (120 <= h && h < 180) {
-  r = 0;
-  g = c;
-  b = x;
-  } else if (180 <= h && h < 240) {
-  r = 0;
-  g = x;
-  b = c;
-  } else if (240 <= h && h < 300) {
-  r = x;
-  g = 0;
-  b = c;
-  } else if (300 <= h && h < 360) {
-  r = c;
-  g = 0;
-  b = x;
-  }
-  r = Math.round((r + m) * 255);
-  g = Math.round((g + m) * 255);
-  b = Math.round((b + m) * 255);
-  
-  return {r,g,b};
-  }
+
+    let c = (1 - Math.abs(2 * l - 1)) * s,
+        x = c * (1 - Math.abs(((h / 60) % 2) - 1)),
+        m = l - c / 2,
+        r = 0,
+        g = 0,
+        b = 0;
+    if (0 <= h && h < 60) {
+        r = c;
+        g = x;
+        b = 0;
+    } else if (60 <= h && h < 120) {
+        r = x;
+        g = c;
+        b = 0;
+    } else if (120 <= h && h < 180) {
+        r = 0;
+        g = c;
+        b = x;
+    } else if (180 <= h && h < 240) {
+        r = 0;
+        g = x;
+        b = c;
+    } else if (240 <= h && h < 300) {
+        r = x;
+        g = 0;
+        b = c;
+    } else if (300 <= h && h < 360) {
+        r = c;
+        g = 0;
+        b = x;
+    }
+    r = Math.round((r + m) * 255);
+    g = Math.round((g + m) * 255);
+    b = Math.round((b + m) * 255);
+
+    return {
+        r,
+        g,
+        b
+    };
+}
+
+function generateAnalogous(colorC) {
+    let rgbC = hexToRgb(colorC);
+    let hslC = rgbToHsl(rgbC.r, rgbC.g, rgbC.b);
+
+    let hslA = {
+        h: shiftH(hslC.h, -40),
+        s: hslC.s,
+        l: hslC.l
+    }
+    let hslB = {
+        h: shiftH(hslC.h, -20),
+        s: hslC.s,
+        l: hslC.l
+    }
+    let hslD = {
+        h: shiftH(hslC.h, 20),
+        s: hslC.s,
+        l: hslC.l
+    }
+    let hslE = {
+        h: shiftH(hslC.h, 40),
+        s: hslC.s,
+        l: hslC.l
+    }
+
+    let rgbA = hslToRgb(hslA);
+    let rgbB = hslToRgb(hslB);
+    let rgbD = hslToRgb(hslD);
+    let rgbE = hslToRgb(hslE);
+
+    let hexA = rgbToHex(rgbA);
+    let hexB = rgbToHex(rgbB);
+    let hexD = rgbToHex(rgbD);
+    let hexE = rgbToHex(rgbE);
+
+    console.log(rgbA, rgbB, colorC, rgbD, rgbE)
+
+    let colorBoxes = [{
+            color: hexA,
+            index: "A"
+        },
+        {
+            color: hexB,
+            index: "B"
+        },
+        {
+            color: colorC,
+            index: "C"
+        },
+        {
+            color: hexD,
+            index: "D"
+        },
+        {
+            color: hexE,
+            index: "E"
+        }
+
+    ];
+    return colorBoxes;
+
+}
+
+function shiftH(h, deg) {
+    let x = h + deg;
+    if (x > 359) {
+        x = x - 360;
+    } else if (x < 0) {
+        x = x + 360;
+    }
+    return x;
+}
