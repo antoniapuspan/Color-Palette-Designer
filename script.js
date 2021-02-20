@@ -413,8 +413,8 @@ function generateTriad(colorC) {
 
     let hslA = {
         h: hslC.h,
-        s: hslC.s,
-        l: hslC.l
+        s: shiftValue(hslC.s, -10),
+        l: shiftValue(hslC.s, -30)
     }
     let hslB = {
         h: shiftH(hslC.h, -120),
@@ -422,14 +422,14 @@ function generateTriad(colorC) {
         l: hslC.l
     }
     let hslD = {
-        h: hslC.h,
-        s: hslC.s,
+        h: shiftH(hslC.h, 120),
+        s: shiftValue(hslC.s, -10),
         l: hslC.l
     }
     let hslE = {
         h: shiftH(hslC.h, 120),
-        s: hslC.s,
-        l: hslC.l
+        s: shiftValue(hslC.s, -5),
+        l: shiftValue(hslC.s, -30)
     }
     let hexA = hslToHex(hslA.h, hslA.s, hslA.l);
     let hexB = hslToHex(hslB.h, hslB.s, hslB.l);
