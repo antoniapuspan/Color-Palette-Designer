@@ -17,7 +17,6 @@ function main() {
     //strores the value from the user
     let userColor = getUserData();
 
-
     //calls function for box color C
     // setColorC(userColor);
     let checkedOption1 = document.getElementById("option1").checked;
@@ -27,11 +26,11 @@ function main() {
     let checkedOption5 = document.getElementById("option5").checked;
     let checkedOption6 = document.getElementById("option6").checked;
 
+    //runs function for one option selected
     let colorSet;
     if (checkedOption1) {
         console.log("option1")
         colorSet = generateAnalogous(userColor);
-
     } else if (checkedOption2) {
         console.log("option2")
         colorSet = generateMonochromatic(userColor);
@@ -49,10 +48,8 @@ function main() {
         colorSet = generateShades(userColor);
     }
 
-
     colorSet.forEach(colorbox => {
         displayColorInfo(colorbox.color, colorbox.index);
-
     });
 }
 
@@ -62,15 +59,7 @@ function getUserData() {
     return color;
 }
 
-// Showing the color as a colored box in CSS
-// function setColorC(color) {
-//     colorC.style.backgroundColor = color;
-// }
-
 function displayColorInfo(color, index) {
-    // // get the color selected
-    // console.log(color);
-
     // convert from hex to rgb, hsl, css and so on
     let rgb = hexToRgb(color);
     let myHsl = rgbToHsl(rgb.r, rgb.g, rgb.b);
@@ -199,6 +188,7 @@ function rgbToHsl(r, g, b) {
     };
 }
 
+//Converting from HSL to HEX
 function hslToHex(h,s,l) {
     s /= 100;
     l /= 100;
@@ -239,6 +229,7 @@ function hslToHex(h,s,l) {
     return "#" + r + g + b;
   }
 
+  //Converting from HSL to RGB
 function hslToRgb(hsl) {
     const h = hsl.h;
     const s = hsl.s / 100;
@@ -286,6 +277,7 @@ function hslToRgb(hsl) {
     };
 }
 
+//Function Analogous Harmony
 function generateAnalogous(colorC) {
     let rgbC = hexToRgb(colorC);
     let hslC = rgbToHsl(rgbC.r, rgbC.g, rgbC.b);
@@ -342,7 +334,7 @@ function generateAnalogous(colorC) {
 
 }
 
-
+//Function Monochromatic Harmony
 function generateMonochromatic(colorC) {
 
     let rgbC = hexToRgb(colorC);
@@ -407,6 +399,7 @@ function generateMonochromatic(colorC) {
 
 }
 
+//Function Triad Harmony
 function generateTriad(colorC) {
     let rgbC = hexToRgb(colorC);
     let hslC = rgbToHsl(rgbC.r, rgbC.g, rgbC.b);
@@ -462,6 +455,7 @@ function generateTriad(colorC) {
 
 }
 
+//Function Complentary Harmony
 function generateComplementary(colorC) {
     let rgbC = hexToRgb(colorC);
     let hslC = rgbToHsl(rgbC.r, rgbC.g, rgbC.b);
@@ -517,6 +511,7 @@ function generateComplementary(colorC) {
 
 }
 
+//Function Compound Harmony
 function generateCompound(colorC) {
     let rgbC = hexToRgb(colorC);
     let hslC = rgbToHsl(rgbC.r, rgbC.g, rgbC.b);
@@ -573,6 +568,7 @@ function generateCompound(colorC) {
 
 }
 
+//Function Shades Harmony
 function generateShades(colorC) {
 
     let rgbC = hexToRgb(colorC);
@@ -637,6 +633,7 @@ function generateShades(colorC) {
 
 }
 
+//Function Shift h a number of degrees from colorC
 function shiftH(h, deg) {
     let x = h + deg;
     if (x > 359) {
@@ -647,6 +644,7 @@ function shiftH(h, deg) {
     return x;
 }
 
+//Function Shift value s or l a number of %
 function shiftValue(value, percentage) {
     let x = value + value * percentage / 100;
     if (x > 100) {
