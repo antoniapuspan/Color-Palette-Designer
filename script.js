@@ -39,7 +39,7 @@ function main() {
         colorSet = generateTriad(userColor);
     } else if (checkedOption4) {
         console.log("option4")
-
+        colorSet = generateComplementary(userColor);
     } else if (checkedOption5) {
         console.log("option5")
 
@@ -437,17 +437,65 @@ function generateTriad(colorC) {
         s: hslC.s,
         l: hslC.l
     }
-    let rgbA = hslToRgb(hslA);
-    let rgbB = hslToRgb(hslB);
-    let rgbD = hslToRgb(hslD);
-    let rgbE = hslToRgb(hslE);
+    let hexA = hslToHex(hslA.h, hslA.s, hslA.l);
+    let hexB = hslToHex(hslB.h, hslB.s, hslB.l);
+    let hexD = hslToHex(hslD.h, hslD.s, hslD.l);
+    let hexE = hslToHex(hslE.h, hslE.s, hslE.l);
 
-    let hexA = rgbToHex(rgbA);
-    let hexB = rgbToHex(rgbB);
-    let hexD = rgbToHex(rgbD);
-    let hexE = rgbToHex(rgbE);
+    let colorBoxes = [{
+            color: hexA,
+            index: "A"
+        },
+        {
+            color: hexB,
+            index: "B"
+        },
+        {
+            color: colorC,
+            index: "C"
+        },
+        {
+            color: hexD,
+            index: "D"
+        },
+        {
+            color: hexE,
+            index: "E"
+        }
 
-    console.log(rgbA, rgbB, colorC, rgbD, rgbE)
+    ];
+    return colorBoxes;
+
+}
+
+function generateComplementary(colorC) {
+    let rgbC = hexToRgb(colorC);
+    let hslC = rgbToHsl(rgbC.r, rgbC.g, rgbC.b);
+
+    let hslA = {
+        h: hslC.h,
+        s: hslC.s,
+        l: hslC.l
+    }
+    let hslB = {
+        h: hslC.h,
+        s: hslC.s,
+        l: hslC.l
+    }
+    let hslD = {
+        h: hslC.h,
+        s: hslC.s,
+        l: hslC.l
+    }
+    let hslE = {
+        h: shiftH(hslC.h, 180),
+        s: hslC.s,
+        l: hslC.l
+    }
+    let hexA = hslToHex(hslA.h, hslA.s, hslA.l);
+    let hexB = hslToHex(hslB.h, hslB.s, hslB.l);
+    let hexD = hslToHex(hslD.h, hslD.s, hslD.l);
+    let hexE = hslToHex(hslE.h, hslE.s, hslE.l);
 
     let colorBoxes = [{
             color: hexA,
