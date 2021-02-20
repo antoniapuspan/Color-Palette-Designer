@@ -81,7 +81,7 @@ function showRbgColor(rgb, index) {
 }
 
 function showHslColor(hsl, index) {
-    document.querySelector(`#color${index} .hslColor .value`).textContent = `${hsl.h}, ${hsl.s}, ${hsl.l}`;
+    document.querySelector(`#color${index} .hslColor .value`).textContent = `${hsl.h}, ${hsl.s}%, ${hsl.l}%`;
 }
 
 function showColorBox(rgb, index) {
