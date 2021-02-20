@@ -17,7 +17,7 @@ function main() {
     //strores the value from the user
     let userColor = getUserData();
 
-    
+
     //calls function for box color C
     // setColorC(userColor);
     let checkedOption1 = document.getElementById("option1").checked;
@@ -43,7 +43,7 @@ function main() {
         colorSet = generateComplementary(userColor);
     } else if (checkedOption5) {
         console.log("option5")
-
+        colorSet = generateCompound(userColor);
     } else if (checkedOption6) {
         console.log("option6")
         colorSet = generateShades(userColor);
@@ -486,6 +486,62 @@ function generateComplementary(colorC) {
         s: hslC.s,
         l: hslC.l
     }
+    let hexA = hslToHex(hslA.h, hslA.s, hslA.l);
+    let hexB = hslToHex(hslB.h, hslB.s, hslB.l);
+    let hexD = hslToHex(hslD.h, hslD.s, hslD.l);
+    let hexE = hslToHex(hslE.h, hslE.s, hslE.l);
+
+    let colorBoxes = [{
+            color: hexA,
+            index: "A"
+        },
+        {
+            color: hexB,
+            index: "B"
+        },
+        {
+            color: colorC,
+            index: "C"
+        },
+        {
+            color: hexD,
+            index: "D"
+        },
+        {
+            color: hexE,
+            index: "E"
+        }
+
+    ];
+    return colorBoxes;
+
+}
+
+function generateCompound(colorC) {
+    let rgbC = hexToRgb(colorC);
+    let hslC = rgbToHsl(rgbC.r, rgbC.g, rgbC.b);
+
+    let hslA = {
+        h: shiftH(hslC.h, 20),
+        s: shiftValue(hslC.s, -10),
+        l: shiftValue(hslC.l, -20)
+    }
+    let hslB = {
+        h: shiftH(hslC.h, 20),
+        s: shiftValue(hslC.s, -40),
+        l: shiftValue(hslC.l, -40)
+    }
+    let hslD = {
+        h: shiftH(hslC.h, 120),
+        s: shiftValue(hslC.s, -20),
+        l: shiftValue(hslC.l, -8)
+    }
+    let hslE = {
+        h: shiftH(hslC.h, 100),
+        s: shiftValue(hslC.s, -10),
+        l: shiftValue(hslC.l, -20)
+    }
+
     let hexA = hslToHex(hslA.h, hslA.s, hslA.l);
     let hexB = hslToHex(hslB.h, hslB.s, hslB.l);
     let hexD = hslToHex(hslD.h, hslD.s, hslD.l);
