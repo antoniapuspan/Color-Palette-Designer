@@ -17,6 +17,7 @@ function main() {
     //strores the value from the user
     let userColor = getUserData();
 
+    
     //calls function for box color C
     // setColorC(userColor);
     let checkedOption1 = document.getElementById("option1").checked;
