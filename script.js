@@ -45,7 +45,7 @@ function main() {
 
     } else if (checkedOption6) {
         console.log("option6")
-
+        colorSet = generateShades(userColor);
     }
 
 
@@ -310,17 +310,10 @@ function generateAnalogous(colorC) {
         l: hslC.l
     }
 
-    let rgbA = hslToRgb(hslA);
-    let rgbB = hslToRgb(hslB);
-    let rgbD = hslToRgb(hslD);
-    let rgbE = hslToRgb(hslE);
-
-    let hexA = rgbToHex(rgbA);
-    let hexB = rgbToHex(rgbB);
-    let hexD = rgbToHex(rgbD);
-    let hexE = rgbToHex(rgbE);
-
-    console.log(rgbA, rgbB, colorC, rgbD, rgbE)
+    let hexA = hslToHex(hslA.h, hslA.s, hslA.l);
+    let hexB = hslToHex(hslB.h, hslB.s, hslB.l);
+    let hexD = hslToHex(hslD.h, hslD.s, hslD.l);
+    let hexE = hslToHex(hslE.h, hslE.s, hslE.l);
 
     let colorBoxes = [{
             color: hexA,
@@ -496,6 +489,70 @@ function generateComplementary(colorC) {
     let hexB = hslToHex(hslB.h, hslB.s, hslB.l);
     let hexD = hslToHex(hslD.h, hslD.s, hslD.l);
     let hexE = hslToHex(hslE.h, hslE.s, hslE.l);
+
+    let colorBoxes = [{
+            color: hexA,
+            index: "A"
+        },
+        {
+            color: hexB,
+            index: "B"
+        },
+        {
+            color: colorC,
+            index: "C"
+        },
+        {
+            color: hexD,
+            index: "D"
+        },
+        {
+            color: hexE,
+            index: "E"
+        }
+
+    ];
+    return colorBoxes;
+
+}
+
+function generateShades(colorC) {
+
+    let rgbC = hexToRgb(colorC);
+    let hslC = rgbToHsl(rgbC.r, rgbC.g, rgbC.b);
+    console.log(hslC.h)
+
+    let hslA = {
+        h: hslC.h,
+        s: hslC.s,
+        l: shiftValue(hslC.l, -85)
+    }
+    let hslB = {
+        h: hslC.h,
+        s: hslC.s,
+        l: shiftValue(hslC.l, -50)
+    }
+    let hslD = {
+        h: hslC.h,
+        s: hslC.s,
+        l: shiftValue(hslC.l, -65)
+    }
+    let hslE = {
+        h: hslC.h,
+        s: hslC.s,
+        l: shiftValue(hslC.l, -30)
+    }
+
+    console.log(hslA,
+        hslB,
+        hslD,
+        hslE)
+
+    let hexA = hslToHex(hslA.h, hslA.s, hslA.l);
+    let hexB = hslToHex(hslB.h, hslB.s, hslB.l);
+    let hexD = hslToHex(hslD.h, hslD.s, hslD.l);
+    let hexE = hslToHex(hslE.h, hslE.s, hslE.l);
+
 
     let colorBoxes = [{
             color: hexA,
