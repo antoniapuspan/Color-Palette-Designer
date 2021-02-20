@@ -469,17 +469,17 @@ function generateComplementary(colorC) {
     let hslA = {
         h: hslC.h,
         s: hslC.s,
-        l: hslC.l
+        l: shiftValue(hslC.l, -30),
     }
     let hslB = {
         h: hslC.h,
-        s: hslC.s,
-        l: hslC.l
+        s: shiftValue(hslC.s, -10),
+        l: shiftValue(hslC.s, -30),
     }
     let hslD = {
-        h: hslC.h,
-        s: hslC.s,
-        l: hslC.l
+        h: shiftH(hslC.h, 180),
+        s: shiftValue(hslC.s, -70),
+        l: shiftValue(hslC.l, -30)
     }
     let hslE = {
         h: shiftH(hslC.h, 180),
