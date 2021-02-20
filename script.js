@@ -19,12 +19,35 @@ function main() {
 
     //calls function for box color C
     // setColorC(userColor);
+    let checkedOption1 = document.getElementById("option1").checked;
+    let checkedOption2 = document.getElementById("option2").checked;
+    let checkedOption3 = document.getElementById("option3").checked;
+    let checkedOption4 = document.getElementById("option4").checked;
+    let checkedOption5 = document.getElementById("option5").checked;
+    let checkedOption6 = document.getElementById("option6").checked;
 
     let colorSet;
-    if(option1) {
+    if (checkedOption1) {
+        console.log("option1")
         colorSet = generateAnalogous(userColor);
-        
+
+    } else if (checkedOption2) {
+        console.log("option2")
+        colorSet = generateMonochromatic(userColor);
+    } else if (checkedOption3) {
+        console.log("option3")
+
+    } else if (checkedOption4) {
+        console.log("option4")
+
+    } else if (checkedOption5) {
+        console.log("option5")
+
+    } else if (checkedOption6) {
+        console.log("option6")
+
     }
+
 
     colorSet.forEach(colorbox => {
         displayColorInfo(colorbox.color, colorbox.index);
@@ -44,8 +67,8 @@ function getUserData() {
 // }
 
 function displayColorInfo(color, index) {
-    // get the color selected
-    console.log(color);
+    // // get the color selected
+    // console.log(color);
 
     // convert from hex to rgb, hsl, css and so on
     let rgb = hexToRgb(color);
@@ -130,7 +153,7 @@ function rgbToHsl(r, g, b) {
     g /= 255;
     b /= 255;
 
-    console.log(r, g, b);
+    // console.log(r, g, b);
     let h, s, l;
 
     const min = Math.min(r, g, b);
@@ -285,6 +308,69 @@ function generateAnalogous(colorC) {
 
 }
 
+
+function generateMonochromatic(colorC) {
+    let rgbC = hexToRgb(colorC);
+    let hslC = rgbToHsl(rgbC.r, rgbC.g, rgbC.b);
+
+    let hslA = {
+        h: hslC.h,
+        s: shiftS(hslC.s, -50),
+        l: hslC.l
+    }
+    let hslB = {
+        h: hslC.h,
+        s: shiftS(hslC.s, -70),
+        l: hslC.l
+    }
+    let hslD = {
+        h: hslC.h,
+        s: shiftS(hslC.s, -30),
+        l: hslC.l
+    }
+    let hslE = {
+        h: hslC.h,
+        s: shiftS(hslC.s, -15),
+        l: hslC.l
+    }
+    let rgbA = hslToRgb(hslA);
+    let rgbB = hslToRgb(hslB);
+    let rgbD = hslToRgb(hslD);
+    let rgbE = hslToRgb(hslE);
+
+    let hexA = rgbToHex(rgbA);
+    let hexB = rgbToHex(rgbB);
+    let hexD = rgbToHex(rgbD);
+    let hexE = rgbToHex(rgbE);
+
+    console.log(rgbA, rgbB, colorC, rgbD, rgbE)
+
+    let colorBoxes = [{
+            color: hexA,
+            index: "A"
+        },
+        {
+            color: hexB,
+            index: "B"
+        },
+        {
+            color: colorC,
+            index: "C"
+        },
+        {
+            color: hexD,
+            index: "D"
+        },
+        {
+            color: hexE,
+            index: "E"
+        }
+
+    ];
+    return colorBoxes;
+
+}
+
 function shiftH(h, deg) {
     let x = h + deg;
     if (x > 359) {
@@ -295,3 +381,10 @@ function shiftH(h, deg) {
     return x;
 }
 
+function shiftS(s, percentage) {
+    let x = s + s * percentage / 100;
+    if (x > 100) {
+        x = 100;
+    }
+    return x;
+}
